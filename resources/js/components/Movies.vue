@@ -1,18 +1,31 @@
 <template>
     <div class="container mx-auto">
-        <Splide :options="options">
-            <SplideSlide v-for="(movie, index) in movies" :key="index">
-                <img class="max-w-[200px] h-[285px] m-auto rounded shadow-md duration-300" :src="movie.image_url" :alt="movie.title">
-            </SplideSlide>
-        </Splide>
+        <p class="text-[25px]">All movies</p>
+        <button 
+            class="border border-black hover:bg-black hover:text-white p-2 transition"
+            @click="addMovie"
+            >Add movie</button>
+        <section id="movies" class="flex flex-wrap justify-center">
+            <div 
+                class="movie p-5"
+                v-for="(movie, index) in movies" :key="index"
+            >
+
+                <img 
+                    class="max-h-[200px] rounded"
+                    :src="movie.image_url"
+                    :alt="movie.title">
+                <p>
+                    {{ movie.title }}
+                </p>
+
+            </div>
+        </section>
     </div>
 </template>
 
 <script>
 import { onMounted, ref } from '@vue/runtime-core';
-
-import { Splide, SplideSlide } from '@splidejs/vue-splide'
-import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
 
     export default {
 
@@ -27,19 +40,39 @@ import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
                 movies.value = data;
             }
 
+            const addMovie = async () => {
+
+                const _token = document.getElementById('token').getAttribute('content');
+
+                const res = await fetch('/movies', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': _token,
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        title: 'Moon Knight',
+                        image_url: 'https://cloudfront-us-east-1.images.arcpublishing.com/gruporepublica/CU3VKR5VYZALHI75YSKUOSK6S4.jpg',
+                        created_at: new Date(),
+                        updated_at: new Date()
+                    })
+                });
+
+                const data = await res.json();
+
+                console.log(data);
+
+            }
+
             onMounted( () => {
                 getMovies();
             });
 
             return {
                 movies,
-                options: {
-                    type: 'loop',
-                    perPage: 3
-                },
 
-                Splide,
-                SplideSlide
+                addMovie
             }
         }
     }

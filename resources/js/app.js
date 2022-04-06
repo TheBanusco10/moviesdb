@@ -11,6 +11,7 @@ import VueSplide from '@splidejs/vue-splide';
 
 let Vue = createApp({});
 
+Vue.component('slider', require('./components/Slider.vue').default);
 Vue.component('movies', require('./components/Movies.vue').default);
 
 Vue.use(VueSplide);

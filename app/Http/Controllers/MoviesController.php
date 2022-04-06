@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Movies;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class MoviesController extends Controller
 {
@@ -35,8 +37,23 @@ class MoviesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        if ($request->ajax()) {
+
+            $output = new ConsoleOutput();
+            $output->writeln($request->input('title'));
+
+            $movie = Movies::create([
+                "title" => $request->input("title"),
+                "image_url" => $request->input("image_url"),
+                "created_at" => $request->input("created_at"),
+                "updated_at" => $request->input("updated_at"),
+            ]);
+        
+            return $movie;
+        }
     }
+
 
     /**
      * Display the specified resource.
