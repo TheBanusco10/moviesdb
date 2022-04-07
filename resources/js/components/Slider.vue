@@ -20,25 +20,18 @@ import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
 
         setup() {
 
-            const movies = ref([]);
-
-            const getMovies = async () => {
-                const res = await fetch('/movies');
-                const data = await res.json();
-
-                movies.value = data;
-            }
-
-            onMounted( () => {
-                // getMovies();
-                console.log('Mounted');
-            });
-
             return {
-                // movies,
                 options: {
                     type: 'loop',
-                    perPage: 3
+                    perPage: 3,
+                    breakpoints: {
+                        768: {
+                            perPage: 2,
+                        },
+                        568: {
+                            perPage: 1,
+                        },
+                    }
                 },
 
                 Splide,

@@ -49,7 +49,7 @@ class MoviesController extends Controller
                 "created_at" => $request->input("created_at"),
                 "updated_at" => $request->input("updated_at"),
             ]);
-        
+
             return $movie;
         }
     }
@@ -95,8 +95,10 @@ class MoviesController extends Controller
      * @param  \App\Models\Movies  $movies
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Movies $movies)
+    public function destroy($id)
     {
-        //
+        $movie = Movies::where('id', $id)->delete();
+
+        return $movie;
     }
 }
