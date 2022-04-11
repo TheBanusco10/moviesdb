@@ -1,23 +1,35 @@
 <template>
     <div class="container mx-auto text-center">
         <p class="text-[25px]">All movies</p>
-        <button 
+        <button
             class="border border-black hover:bg-black hover:text-white p-2 transition"
             data-modal-toggle="addMovieModal"
             >Add movie</button>
-        <section id="movies" class="flex flex-wrap justify-center">
-            <div 
-                class="movie p-5"
+        <section id="movies" class="flex flex-wrap justify-center gap-10 mt-5">
+            <div
+                class="movie relative rounded"
                 v-for="(movie, index) in movies" :key="index"
             >
 
-                <img 
-                    class="max-h-[200px] rounded"
+                <button class="top-2 right-0 absolute z-10">
+                    <svg class="w-6 h-6 text-white" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg>
+                </button>
+
+                <img
+                    class="max-h-[200px] rounded brightness-50"
                     :src="movie.image_url"
-                    :alt="movie.image_url">
-                <p>
-                    {{ movie.title }}
-                </p>
+                    :alt="movie.image_url" />
+
+                <div class="acciones absolute top-2/4 w-full text-white">
+                    <ul>
+                        <button class="w-full">
+                            <li class="p-2">Mi lista</li>
+                        </button>
+                        <button class="w-full">
+                            <li class="p-2">Eliminar</li>
+                        </button>
+                    </ul>
+                </div>
 
             </div>
         </section>
@@ -48,14 +60,14 @@
                 <div class="p-6 space-y-6">
                     <div class="relative z-0 mb-6 w-full group">
                         <div class="relative z-0 mb-6 w-full group">
-                            <input type="text" name="title" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required 
+                            <input type="text" name="title" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required
                             v-model="newMovie.title"
                             />
                             <label for="title" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Title</label>
                         </div>
 
                         <div class="relative z-0 mb-6 w-full group">
-                            <input type="url" name="image_url" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required 
+                            <input type="url" name="image_url" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required
                             v-model="newMovie.image_url"
                             />
                             <label for="image_url" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Image URL</label>
